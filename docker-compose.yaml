@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:15.1
+    environment:
+      POSTGRES_PASSWORD: "123"
+      POSTGRES_USER:  "USER"
+      POSTGRES_DB:  "WB"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - .:/var/lib/postgresql/data
+    ports:
+      - 5434:5432
+
+  nats:
+    image: nats:2.8-alpine
+    container_name: Wild
+    command: -js -sd /data
+    volumes:
+      - nats:/data
+    ports:
+      - 4222:4222
+
+volumes:
+  postgres:
+  nats:
+
